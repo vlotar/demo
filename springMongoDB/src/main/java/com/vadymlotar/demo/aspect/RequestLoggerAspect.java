@@ -66,6 +66,7 @@ public class RequestLoggerAspect {
 
 		ResponseItem responseItem = new ResponseItem();
 		responseItem.setRequestDuration(stopWatch.getTotalTimeMillis());
+		responseItem.setResponse(retVal.toString());
 		responseItemService.addResponseItem(responseItem);
 		
 		return retVal;

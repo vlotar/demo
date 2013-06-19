@@ -1,5 +1,7 @@
 package com.vadymlotar.demo.domain.model;
 
+import java.util.Date;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -7,7 +9,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class ResponseItem {
 	@Id
 	private String id;
+	private String response;
 	private long requestDuration;
+	private Date date;
 
 	public String getId() {
 		return id;
@@ -25,4 +29,19 @@ public class ResponseItem {
 		this.requestDuration = requestDuration;
 	}
 
+	public String getResponse() {
+		return response;
+	}
+
+	public void setResponse(String response) {
+		this.response = response;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}	
 }
