@@ -6,6 +6,7 @@
 	<div>Average Request Duration - ${model.avgDuration} ms</div>
 	<div>Min Request Duration - ${model.minDuration} ms</div>
 	<div>Max Request Duration - ${model.maxDuration} ms</div>
+	<div>Median Request Duration - ${model.medianDuration} ms</div>
  
 </body>
 </html>

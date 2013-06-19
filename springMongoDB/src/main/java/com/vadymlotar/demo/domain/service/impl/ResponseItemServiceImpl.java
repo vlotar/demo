@@ -6,6 +6,7 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.mapreduce.MapReduceResults;
 import org.springframework.data.mongodb.core.query.Query;
@@ -28,8 +29,13 @@ public class ResponseItemServiceImpl implements ResponseItemService {
 			DBCollection collection = mongo.createCollection(COLLECTION_NAME);
 			//create TTL Index
 			BasicDBObject index = new BasicDBObject("date", 1);
-			BasicDBObject options = new BasicDBObject("expireAfterSeconds", TimeUnit.MINUTES.toSeconds(60));
+			BasicDBObject options = new BasicDBObject("expireAfterSeconds",
+					TimeUnit.MINUTES.toSeconds(60));
 			collection.ensureIndex(index, options);
+			// create index for requestDuration column
+			index = new BasicDBObject("requestDuration", 1);
+			collection.ensureIndex(index);
+
 		}	
 		responseItem.setId(UUID.randomUUID().toString());
 		responseItem.setDate(new Date());
@@ -43,21 +49,24 @@ public class ResponseItemServiceImpl implements ResponseItemService {
 		calculateAvgDuration(requestStatistics);
 		calculateMaxDuration(requestStatistics);
 		calculateMinDuration(requestStatistics);
-		//calculateMedianDuration(requestStatistics);
+		calculateMedianDuration(requestStatistics);
 		return requestStatistics;
 	}
 
-	/*private void calculateMedianDuration(RequestStatistics requestStatistics) {
-		String mapFunction = "function(){emit( {sorting: this.requestDuration * -1,'med'},this.requestDuration);}";
-		String reduceFunction = "function(key,values){ var mean = values[(int)values.length/2]; return mean;}";
-
-		@SuppressWarnings("rawtypes")
-		MapReduceResults<Map> result = mongo.mapReduce(COLLECTION_NAME,
+	private void calculateMedianDuration(RequestStatistics requestStatistics) {
+		String mapFunction = "function(){emit( 'med',this.requestDuration);}";
+		String reduceFunction = "function(key,values){ if(values.length==0) return 0;  var mean = values[parseInt(values.length/2)]; return mean;}";
+		//add sorting
+		Query query = new Query();
+		query.with(new Sort(Sort.Direction.ASC, "requestDuration"));
+		
+		@SuppressWarnings("rawtypes")		
+		MapReduceResults<Map> result = mongo.mapReduce(query, COLLECTION_NAME,
 				mapFunction, reduceFunction, Map.class);
-		for (Map<String, Double> map : result) {
-			requestStatistics.setAvgDuration(map.get("value"));
+		for (@SuppressWarnings("rawtypes") Map<String, Map> map : result) {
+			requestStatistics.setMedianDuration((double) map.get("value").get("floatApprox"));
 		}
-	}*/
+	}
 
 	private void calculateMinDuration(RequestStatistics requestStatistics) {
 		String mapFunction = "function(){emit( 'min',this.requestDuration);}";
