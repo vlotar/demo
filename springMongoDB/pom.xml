@@ -38,6 +38,12 @@
 			<version>${org.springframework.data-version}</version>
 		</dependency>
 		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
+		
 		<!-- Servlet -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
