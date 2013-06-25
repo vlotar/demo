@@ -10,13 +10,13 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 import org.springframework.util.StopWatch;
 
-import com.vadymlotar.demo.domain.model.ResponseItem;
+import com.vadymlotar.demo.domain.model.LogItem;
 
 @ContextConfiguration(locations = {"file:src/main/webapp/WEB-INF/dispatcher-servlet.xml"})
-public class ResponseItemServiceTest extends AbstractJUnit4SpringContextTests {
+public class LogItemServiceTest extends AbstractJUnit4SpringContextTests {
 	
 	@Autowired
-	private ResponseItemService responseItemService;
+	private LogItemService responseItemService;
 	
 	@Test
 	public void testAddResponseItem() {
@@ -58,11 +58,11 @@ public class ResponseItemServiceTest extends AbstractJUnit4SpringContextTests {
 		@Override
 		public void run() {
 			for (int i = 0; i < size; i++) {
-				ResponseItem responseItem = new ResponseItem();
+				LogItem responseItem = new LogItem();
 				responseItem.setRequestDuration(100);
 				responseItem
-						.setResponse("response ksdhfkj hsdjkfhsdj fhksdjhfksdhfksdhfksdkf hkdhglkahs gafaresponse ksdhfkj hsdjkfhsdj fhksdjhfksdhfksdhfksdkf hkdhglkahs gafaresponse ksdhfkj hsdjkfhsdj fhksdjhfksdhfksdhfksdkf hkdhglkahs gafaresponse ksdhfkj hsdjkfhsdj fhksdjhfksdhfksdhfksdkf hkdhglkahs gafaresponse ksdhfkj hsdjkfhsdj fhksdjhfksdhfksdhfksdkf hkdhglkahs gafaresponse ksdhfkj hsdjkfhsdj fhksdjhfksdhfksdhfksdkf hkdhglkahs gafaresponse ksdhfkj hsdjkfhsdj fhksdjhfksdhfksdhfksdkf hkdhglkahs gafaresponse ksdhfkj hsdjkfhsdj fhksdjhfksdhfksdhfksdkf hkdhglkahs gafaresponse ksdhfkj hsdjkfhsdj fhksdjhfksdhfksdhfksdkf hkdhglkahs gafaresponse ksdhfkj hsdjkfhsdj fhksdjhfksdhfksdhfksdkf hkdhglkahs gafaresponse ksdhfkj hsdjkfhsdj fhksdjhfksdhfksdhfksdkf hkdhglkahs gafaresponse ksdhfkj hsdjkfhsdj fhksdjhfksdhfksdhfksdkf hkdhglkahs gafaresponse ksdhfkj hsdjkfhsdj fhksdjhfksdhfksdhfksdkf hkdhglkahs gafaresponse ksdhfkj hsdjkfhsdj fhksdjhfksdhfksdhfksdkf hkdhglkahs gafaresponse ksdhfkj hsdjkfhsdj fhksdjhfksdhfksdhfksdkf hkdhglkahs gafaresponse ksdhfkj hsdjkfhsdj fhksdjhfksdhfksdhfksdkf hkdhglkahs gafaresponse ksdhfkj hsdjkfhsdj fhksdjhfksdhfksdhfksdkf hkdhglkahs gafaresponse ksdhfkj hsdjkfhsdj fhksdjhfksdhfksdhfksdkf hkdhglkahs gafa");
-				responseItemService.addResponseItem(responseItem);
+						.setResponse("response");
+				responseItemService.addLogItem(responseItem);
 			}
 		}
 		

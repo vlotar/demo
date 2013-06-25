@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StopWatch;
 
-import com.vadymlotar.demo.domain.model.ResponseItem;
-import com.vadymlotar.demo.domain.service.ResponseItemService;
+import com.vadymlotar.demo.domain.model.LogItem;
+import com.vadymlotar.demo.domain.service.LogItemService;
 
 /**
  * Allows to log all incoming requests. Put information about duration of the
@@ -22,10 +22,10 @@ import com.vadymlotar.demo.domain.service.ResponseItemService;
 public class RequestLoggerAspect {
 	
 	@Autowired
-	private ResponseItemService responseItemService;
+	private LogItemService responseItemService;
 
 	/**
-	 * Advice which allows do some operations with logging before and after
+	 * Advice which allows to do some operations with logging before and after
 	 * method execution
 	 * 
 	 * @param joinPoint
@@ -63,11 +63,12 @@ public class RequestLoggerAspect {
 		logMessage.append(stopWatch.getTotalTimeMillis());
 		logMessage.append(" ms");
 		System.out.println(logMessage.toString());
-
-		ResponseItem responseItem = new ResponseItem();
+		
+		//save information about request in MongoDB
+		LogItem responseItem = new LogItem();
 		responseItem.setRequestDuration(stopWatch.getTotalTimeMillis());
 		responseItem.setResponse(retVal.toString());
-		responseItemService.addResponseItem(responseItem);
+		responseItemService.addLogItem(responseItem);
 		
 		return retVal;
 	}

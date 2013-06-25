@@ -1,13 +1,13 @@
 package com.vadymlotar.demo.domain.service;
 
 import com.vadymlotar.demo.controller.model.RequestStatistics;
-import com.vadymlotar.demo.domain.model.ResponseItem;
+import com.vadymlotar.demo.domain.model.LogItem;
 
-public interface ResponseItemService {
-	//don't use dashes
+public interface LogItemService {
+	
 	static final String COLLECTION_NAME = "requests";
 	
-	public void addResponseItem(ResponseItem responseItem);
+	public void addLogItem(LogItem logItem);
 
 	public RequestStatistics getRequestStatistics();
 }

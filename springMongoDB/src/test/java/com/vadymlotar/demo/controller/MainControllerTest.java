@@ -34,14 +34,14 @@ public class MainControllerTest {
 	public void testHome() throws Exception {
 		mockMvc.perform(get("/").accept(MediaType.TEXT_PLAIN))
 				.andExpect(status().isOk())
-				.andExpect(view().name("/index"));
+				.andExpect(view().name("/home"));
 	}
 
 	@Configuration
 	public static class TestConfiguration {
 
 		@Bean
-		public MainController homeController() {
+		public MainController testController() {
 			return new MainController();
 		}
 

@@ -10,12 +10,12 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class MainController {
 	
-	@RequestMapping(value = "/*", method = RequestMethod.GET)  
+	@RequestMapping(value = "/home", method = RequestMethod.GET)  
 	public ModelAndView show() throws InterruptedException {
-		ModelAndView mv = new ModelAndView("/index");
+		ModelAndView mv = new ModelAndView("/home");
 		mv.addObject("message", "Recieved and logged one more request");
 		
-		//do some work
+		//do some 'real' work
 		Random random = new Random();
 		int randomDelay = random.nextInt(200);
 		Thread.sleep(randomDelay);

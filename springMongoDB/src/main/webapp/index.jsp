@@ -1,5 +1,5 @@
 <html>
 <%
-response.sendRedirect("index");
+response.sendRedirect("home");
 %>
 </html>

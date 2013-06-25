@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.vadymlotar.demo.controller.model.RequestStatistics;
-import com.vadymlotar.demo.domain.service.ResponseItemService;
+import com.vadymlotar.demo.domain.service.LogItemService;
 
 @Controller
 public class RequestStatisticsController {
 	@Autowired
-	private ResponseItemService responseItemService;
+	private LogItemService responseItemService;
 	
 	@RequestMapping(value = "/statistics", method = RequestMethod.GET)
 	public ModelAndView showStatistics() {
