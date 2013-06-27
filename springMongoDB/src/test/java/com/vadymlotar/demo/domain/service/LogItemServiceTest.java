@@ -59,6 +59,7 @@ public class LogItemServiceTest extends AbstractJUnit4SpringContextTests {
 		public void run() {
 			for (int i = 0; i < size; i++) {
 				LogItem responseItem = new LogItem();
+				//put some magic number as request duration 
 				responseItem.setRequestDuration(100);
 				responseItem
 						.setResponse("response");

@@ -9,6 +9,12 @@ import org.springframework.web.servlet.ModelAndView;
 import com.vadymlotar.demo.controller.model.RequestStatistics;
 import com.vadymlotar.demo.domain.service.LogItemService;
 
+/**
+ * Controller allows to show statistics about web site loading
+ * 
+ * @author vlotar
+ * 
+ */
 @Controller
 public class RequestStatisticsController {
 	@Autowired

@@ -41,7 +41,7 @@ public class LogItemServiceImpl implements LogItemService {
 		if (!mongo.collectionExists(COLLECTION_NAME)) {
 			// create collection
 			DBCollection collection = mongo.createCollection(COLLECTION_NAME);
-			// create TTL Index
+			// create Time-To-Live Index
 			BasicDBObject index = new BasicDBObject("date", 1);
 			BasicDBObject options = new BasicDBObject("expireAfterSeconds",
 					TimeUnit.MINUTES.toSeconds(60));
