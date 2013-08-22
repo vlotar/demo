@@ -1,0 +1,4 @@
+1;Apple;Apple iPhone 4 - 8GB - White (Sprint) Smartphone;200
+2;Nikon;Nikon D600 DSLR Camera Kit with 24-85mm f/3.5-4.5G ED AF-S VR - Refurbished;1599.99
+3;Apple;13" Apple MacBook Air 1.7 Ghz i5 4GB/120GB SSD/Free US Shipping! MC966LL/A;699
+4;Omega;New 10.1" Android 4.0 Mini Notebook VIA8850 4GB Camera Flash 1.5GHz 1GB Black;109.59
