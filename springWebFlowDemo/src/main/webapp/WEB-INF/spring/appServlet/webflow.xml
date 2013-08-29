@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/webflow-config"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xsi:schemaLocation="http://www.springframework.org/schema/webflow-config http://www.springframework.org/schema/webflow-config/spring-webflow-config-2.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <!-- Enables FlowHandlers -->
+    <beans:bean class="org.springframework.webflow.mvc.servlet.FlowHandlerAdapter">
+        <beans:property name="flowExecutor" ref="flowExecutor"/>
+    </beans:bean>
+
+    <!-- Executes flows: the central entry point into the Spring Web Flow system -->
+    <flow-executor id="flowExecutor">
+        <flow-execution-listeners>
+            <listener ref="securityFlowExecutionListener"/>
+        </flow-execution-listeners>
+    </flow-executor>
+
+    <!-- The registry of executable flow definitions -->
+    <flow-registry id="flowRegistry" flow-builder-services="flowBuilderServices" base-path="/WEB-INF/flows">
+        <flow-location-pattern value="/**/flow.xml" />
+    </flow-registry>
+
+    <!-- Configures the Spring Web Flow -->
+    <flow-builder-services id="flowBuilderServices" development="true" view-factory-creator="mvcViewFactoryCreator" />
+
+    <!-- Configures Web Flow to use Tiles to create views for rendering; Tiles allows for applying consistent layouts to your views -->
+    <beans:bean id="mvcViewFactoryCreator" class="org.springframework.webflow.mvc.builder.MvcViewFactoryCreator">
+        <beans:property name="viewResolvers" ref="freeMarkerViewResolver"/>
+    </beans:bean>
+
+    <!-- Installs a listener to apply Spring Security authorities -->
+    <beans:bean id="securityFlowExecutionListener" class="org.springframework.webflow.security.SecurityFlowExecutionListener" />
+
+</beans:beans>

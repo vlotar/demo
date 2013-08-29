@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+
+
+    <!-- Maps request paths to flows in the flowRegistry; e.g. a path of /flights/booking looks for a flow with id "flights/booking" -->
+    <bean class="org.springframework.webflow.mvc.servlet.FlowHandlerMapping">
+        <property name="order" value="-2"/>
+        <property name="flowRegistry" ref="flowRegistry" />
+    </bean>
+
+    <!-- freemarker config -->
+    <bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+        <property name="templateLoaderPath" value="/WEB-INF/ftl/"/>
+    </bean>
+
+    <!--
+      View resolvers can also be configured with ResourceBundles or XML files. If you need
+      different view resolving based on Locale, you have to use the resource bundle resolver.
+    -->
+    <!--<bean id="viewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+        <property name="cache" value="true"/>
+        <property name="prefix" value=""/>
+        <property name="suffix" value=".ftl"/>
+    </bean>-->
+
+    <!-- Resolves views selected for rendering by @Controllers to .xhtml resources in the /WEB-INF/views directory -->
+    <bean id="freeMarkerViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.freemarker.FreeMarkerView"/>
+        <property name="prefix" value="" />
+        <property name="suffix" value=".ftl" />
+    </bean>
+
+    <!-- Dispatches requests mapped to flows to FlowHandler implementations -->
+    <bean class="org.springframework.webflow.mvc.servlet.FlowHandlerAdapter">
+        <property name="flowExecutor" ref="flowExecutor" />
+        <property name="ajaxHandler">
+            <bean class=" org.springframework.js.ajax.SpringJavascriptAjaxHandler"/>
+        </property>
+    </bean>
+
+    <!-- Imports user-defined @Controller beans that process client requests -->
+    <import resource="controllers.xml" />
+    <import resource="webflow.xml" />
+
+</beans>
